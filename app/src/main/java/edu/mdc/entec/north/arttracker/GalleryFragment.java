@@ -1,5 +1,6 @@
 package edu.mdc.entec.north.arttracker;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +57,12 @@ public class GalleryFragment extends Fragment implements ArtPieceListFragment.On
         if(isLandscape) {
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ArtPieceListFragment listFragment = ArtPieceListFragment.newInstance(artPieces);
-            ft.replace(R.id.container, listFragment);
+            ft.replace(R.id.container, listFragment, "listFragment");
             ft.addToBackStack("listFragment");
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
             ArtPieceFragment artPieceFragment = ArtPieceFragment.newInstance(artPieces.get(position));
-            ft.replace(R.id.container2, artPieceFragment);
+            ft.replace(R.id.container2, artPieceFragment, "artPieceFragment");
             ft.addToBackStack("artPieceFragment");
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
@@ -70,7 +72,7 @@ public class GalleryFragment extends Fragment implements ArtPieceListFragment.On
 
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 ArtPieceListFragment listFragment = ArtPieceListFragment.newInstance(artPieces);
-                transaction.replace(R.id.container, listFragment);
+                transaction.replace(R.id.container, listFragment, "listFragment");
                 transaction.addToBackStack("listFragment");
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
@@ -78,7 +80,7 @@ public class GalleryFragment extends Fragment implements ArtPieceListFragment.On
 
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
                 ArtPieceFragment artPieceFragment = ArtPieceFragment.newInstance(artPieces.get(position));
-                transaction.replace(R.id.container, artPieceFragment);
+                transaction.replace(R.id.container, artPieceFragment, "artPieceFragment");
                 transaction.addToBackStack("artPieceFragment");
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 transaction.commit();
@@ -128,14 +130,14 @@ public class GalleryFragment extends Fragment implements ArtPieceListFragment.On
         if(isLandscape){
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             ArtPieceFragment artPieceFragment = ArtPieceFragment.newInstance(artPieces.get(position));
-            transaction.replace(R.id.container2, artPieceFragment);
+            transaction.replace(R.id.container2, artPieceFragment, "artPieceFragment");
             transaction.addToBackStack("artPieceFragment");
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             transaction.commit();
         } else{
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             ArtPieceFragment artPieceFragment = ArtPieceFragment.newInstance(artPieces.get(position));
-            transaction.replace(R.id.container, artPieceFragment);
+            transaction.replace(R.id.container, artPieceFragment, "artPieceFragment");
             transaction.addToBackStack("artPieceFragment");
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             transaction.commit();
@@ -146,6 +148,15 @@ public class GalleryFragment extends Fragment implements ArtPieceListFragment.On
     /**
      * @return true = if this fragment can handle the backPress
      */
+
+
+    @Override
+    public void onArtPieceLongSelected(int position) {
+        android.support.v4.app.DialogFragment newFragment = ConfirmDeleteDialogFragment.newInstance(position);
+        newFragment.show(getChildFragmentManager(), "confirmDeleteArtPiece");
+    }
+
+
     public boolean onBackPressed() {
         if(!showList && !isLandscape) {
             getChildFragmentManager().popBackStackImmediate("artPieceFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);

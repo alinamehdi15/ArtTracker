@@ -10,4 +10,10 @@
     <string name="hello_blank_fragment2">Hello from Quiz fragment</string>
     <string name="openDrawer">open Drawer</string>
     <string name="closeDrawer">Close Drawer</string>
+
+    <string-array name="art_types">
+        <item>Painting</item>
+        <item>Movie</item>
+        <item>Sculpture</item>
+    </string-array>
 </resources>

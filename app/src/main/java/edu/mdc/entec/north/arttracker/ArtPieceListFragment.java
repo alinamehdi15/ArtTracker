@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ArtPieceListFragment extends Fragment {
+public class ArtPieceListFragment extends Fragment implements ConfirmDeleteDialogFragment.OnDeleteConfirmedListener {
     private static final String ART_PIECES = "artPieces";
     private static final String TAG = "ArtPieceListFragment";
     private List<ArtPiece> artPieces;
@@ -83,8 +83,14 @@ public class ArtPieceListFragment extends Fragment {
 
     public interface OnArtPieceSelectedListener {
         void onArtPieceSelected(int position);
+        void onArtPieceLongSelected(int position);
     }
 
+    @Override
+    public void onDeleteConfirmed(int position) {
+        artPieces.remove(position);
+        adapter.notifyDataSetChanged();
 
+    }
 
 }

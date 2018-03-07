@@ -3,6 +3,7 @@ package edu.mdc.entec.north.arttracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,5 +24,12 @@ public class MapFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        DialogFragment newFragment = new ListDialogFragment();
+        newFragment.show(getChildFragmentManager(), "list");
+
+    }
 
 }

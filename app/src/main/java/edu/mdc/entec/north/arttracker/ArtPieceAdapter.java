@@ -82,7 +82,7 @@ public class ArtPieceAdapter extends RecyclerView.Adapter<ArtPieceAdapter.ViewHo
             int position = getAdapterPosition();
             if (position != RecyclerView.NO_POSITION){
                 Log.d(TAG, "Button for "+artPieces.get(position).getName()+" was looooooong  clicked");
-                mListener.onArtPieceSelected(position);
+                mListener.onArtPieceLongSelected(position);
                 return true;
             }
             return false;
